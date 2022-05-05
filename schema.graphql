@@ -16,5 +16,5 @@ type People {
 
 type Query {
   feed: [People!]!
-  people(search: String): People
+  people(search: String): [People]
 }

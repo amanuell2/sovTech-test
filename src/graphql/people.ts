@@ -1,6 +1,7 @@
 import { extendType, objectType, nonNull, stringArg } from "nexus";
-
+import fetch from "node-fetch";
 import { NexusGenObjects } from "../../generated/nexus";
+import { baseURL } from "../config/config";
 
 export const People = objectType({
   name: "People",
@@ -43,8 +44,11 @@ export const peopleQuery = extendType({
   definition(t) {
     t.nonNull.list.nonNull.field("feed", {
       type: "People",
-      resolve(parents, context, args, info) {
-        return peoples;
+      async resolve(parents, context, args, info) {
+        const response = await fetch(`${baseURL}people`).then((res) =>
+          res.json()
+        );
+        return response?.results;
       },
     });
   },
@@ -54,14 +58,17 @@ export const peopleQuery = extendType({
 export const getPeopleQuery = extendType({
   type: "Query",
   definition(t) {
-    t.field("people", {
+    t.list.field("people", {
       type: "People",
       args: {
         search: stringArg(),
       },
-      resolve(parents, args, context, info) {
+      async resolve(parents, args, context, info) {
         const { search } = args;
-        return peoples.find((people) => people.name === search);
+        const response = await fetch(`${baseURL}people/?search=${search}`).then(
+          (res) => res.json()
+        );
+        return response?.results;
       },
     });
   },

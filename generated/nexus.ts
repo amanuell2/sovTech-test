@@ -62,7 +62,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     feed: NexusGenRootTypes['People'][]; // [People!]!
-    people: NexusGenRootTypes['People'] | null; // People
+    people: Array<NexusGenRootTypes['People'] | null> | null; // [People]
   }
 }
 
