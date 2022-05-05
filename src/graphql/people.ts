@@ -37,6 +37,7 @@ let peoples: NexusGenObjects["People"][] = [
   },
 ];
 
+// get all people
 export const peopleQuery = extendType({
   type: "Query",
   definition(t) {
@@ -49,22 +50,24 @@ export const peopleQuery = extendType({
   },
 });
 
+// get people by name
 export const getPeopleQuery = extendType({
   type: "Query",
   definition(t) {
     t.field("people", {
       type: "People",
       args: {
-        name: stringArg(),
+        search: stringArg(),
       },
       resolve(parents, args, context, info) {
-        const { name } = args;
-        return peoples.find((people) => people.name === name);
+        const { search } = args;
+        return peoples.find((people) => people.name === search);
       },
     });
   },
 });
 
+// create people
 export const peopleMutation = extendType({
   type: "Mutation",
   definition(t) {

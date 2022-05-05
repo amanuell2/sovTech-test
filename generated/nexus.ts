@@ -95,7 +95,7 @@ export interface NexusGenArgTypes {
   }
   Query: {
     people: { // args
-      name?: string | null; // String
+      search?: string | null; // String
     }
   }
 }
