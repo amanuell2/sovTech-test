@@ -28,11 +28,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   People: { // root type
     gender: string; // String!
-    height: number; // Float!
+    height: string; // String!
     homeworld: string; // String!
-    mass: number; // Float!
+    mass: string; // String!
     name: string; // String!
   }
   Query: {};
@@ -49,32 +50,54 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    createPeople: NexusGenRootTypes['People']; // People!
+  }
   People: { // field return type
     gender: string; // String!
-    height: number; // Float!
+    height: string; // String!
     homeworld: string; // String!
-    mass: number; // Float!
+    mass: string; // String!
     name: string; // String!
   }
   Query: { // field return type
-    ok: boolean; // Boolean!
+    feed: NexusGenRootTypes['People'][]; // [People!]!
+    people: NexusGenRootTypes['People'] | null; // People
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    createPeople: 'People'
+  }
   People: { // field return type name
     gender: 'String'
-    height: 'Float'
+    height: 'String'
     homeworld: 'String'
-    mass: 'Float'
+    mass: 'String'
     name: 'String'
   }
   Query: { // field return type name
-    ok: 'Boolean'
+    feed: 'People'
+    people: 'People'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createPeople: { // args
+      gender: string; // String!
+      height: string; // String!
+      homeworld: string; // String!
+      mass: string; // String!
+      name: string; // String!
+    }
+  }
+  Query: {
+    people: { // args
+      name?: string | null; // String
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

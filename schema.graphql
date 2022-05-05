@@ -2,14 +2,19 @@
 ### Do not make changes to this file directly
 
 
+type Mutation {
+  createPeople(gender: String!, height: String!, homeworld: String!, mass: String!, name: String!): People!
+}
+
 type People {
   gender: String!
-  height: Float!
+  height: String!
   homeworld: String!
-  mass: Float!
+  mass: String!
   name: String!
 }
 
 type Query {
-  ok: Boolean!
+  feed: [People!]!
+  people(name: String): People
 }
