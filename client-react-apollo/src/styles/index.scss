@@ -9,11 +9,40 @@
     font-family: 'Audiowide', cursive;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    min-height: 100vh;
-    background-color: #060c21;
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    z-index: -1;
+    filter: blur(40px);
+
+}
+.card::before,
+.card::after   {  
+    background: linear-gradient(235deg, #2196f3, #010615, #F00000);
+}
+
+.card::nth-child(2)::before,
+.card::nth-child(2)::after  { 
+    background: linear-gradient(235deg, #2196f3, #010615, #F00000);
+}
+
+.card::nth-child(3)::before,
+.card::nth-child(3)::after  {
+    background: linear-gradient(235deg, #772aff, #010615, #2196f3);
 }
