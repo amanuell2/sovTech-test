@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+// rest the box model
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Audiowide', cursive;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    background-color: #060c21;
+}
