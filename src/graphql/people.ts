@@ -21,10 +21,11 @@ export const peopleQuery = extendType({
     t.nonNull.list.nonNull.field("feed", {
       type: "People",
       args: {
-        page: intArg(),
+        page: intArg() || 1,
       },
       async resolve(parents, args, context, info) {
-        const { page } = args;
+        let { page } = args;
+        if (page === undefined || page === null || page < 0) page = 1;
         const response = await fetch(`${baseURL}people/?page=${page}`).then(
           (res) => res.json()
         );
