@@ -28,7 +28,6 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Mutation: {};
   People: { // root type
     gender: string; // String!
     height: string; // String!
@@ -50,9 +49,6 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Mutation: { // field return type
-    createPeople: NexusGenRootTypes['People']; // People!
-  }
   People: { // field return type
     gender: string; // String!
     height: string; // String!
@@ -67,9 +63,6 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
-  Mutation: { // field return type name
-    createPeople: 'People'
-  }
   People: { // field return type name
     gender: 'String'
     height: 'String'
@@ -84,16 +77,10 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
-  Mutation: {
-    createPeople: { // args
-      gender: string; // String!
-      height: string; // String!
-      homeworld: string; // String!
-      mass: string; // String!
-      name: string; // String!
-    }
-  }
   Query: {
+    feed: { // args
+      page?: number | null; // Int
+    }
     people: { // args
       search?: string | null; // String
     }

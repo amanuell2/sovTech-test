@@ -2,10 +2,6 @@
 ### Do not make changes to this file directly
 
 
-type Mutation {
-  createPeople(gender: String!, height: String!, homeworld: String!, mass: String!, name: String!): People!
-}
-
 type People {
   gender: String!
   height: String!
@@ -15,6 +11,6 @@ type People {
 }
 
 type Query {
-  feed: [People!]!
+  feed(page: Int): [People!]!
   people(search: String): [People]
 }

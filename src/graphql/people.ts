@@ -1,4 +1,4 @@
-import { extendType, objectType, nonNull, stringArg } from "nexus";
+import { extendType, objectType, nonNull, stringArg, intArg } from "nexus";
 import fetch from "node-fetch";
 import { NexusGenObjects } from "../../generated/nexus";
 import { baseURL } from "../config/config";
@@ -14,41 +14,21 @@ export const People = objectType({
   },
 });
 
-let peoples: NexusGenObjects["People"][] = [
-  {
-    name: "Luke Skywalker",
-    height: "172",
-    mass: "77",
-    gender: "male",
-    homeworld: "https://swapi.dev/api/planets/1/",
-  },
-  {
-    name: "Luke Skywalker",
-    height: "172",
-    mass: "77",
-    gender: "male",
-    homeworld: "https://swapi.dev/api/planets/1/",
-  },
-  {
-    name: "C-3PO",
-    height: "167",
-    mass: "75",
-    gender: "n/a",
-    homeworld: "https://swapi.dev/api/planets/1/",
-  },
-];
-
 // get all people
 export const peopleQuery = extendType({
   type: "Query",
   definition(t) {
     t.nonNull.list.nonNull.field("feed", {
       type: "People",
-      async resolve(parents, context, args, info) {
-        const response = await fetch(`${baseURL}people`).then((res) =>
-          res.json()
+      args: {
+        page: intArg(),
+      },
+      async resolve(parents, args, context, info) {
+        const { page } = args;
+        const response = await fetch(`${baseURL}people/?page=${page}`).then(
+          (res) => res.json()
         );
-        return response?.results;
+        return response?.results || [];
       },
     });
   },
@@ -69,36 +49,6 @@ export const getPeopleQuery = extendType({
           (res) => res.json()
         );
         return response?.results;
-      },
-    });
-  },
-});
-
-// create people
-export const peopleMutation = extendType({
-  type: "Mutation",
-  definition(t) {
-    t.nonNull.field("createPeople", {
-      type: "People",
-      args: {
-        name: nonNull(stringArg()),
-        height: nonNull(stringArg()),
-        mass: nonNull(stringArg()),
-        gender: nonNull(stringArg()),
-        homeworld: nonNull(stringArg()),
-      },
-      resolve(parents, args, context) {
-        const { name, height, mass, gender, homeworld } = args;
-
-        const people = {
-          name,
-          height,
-          mass,
-          gender,
-          homeworld,
-        };
-        peoples.push(people);
-        return people;
       },
     });
   },
