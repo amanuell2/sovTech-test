@@ -1,6 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-const Card = () => {
+
+export interface CardProps {
+  name: string;
+  height: string;
+  mass: string;
+  gender: string;
+  homeworld: string;
+}
+const Card = ({ name, height, mass, gender, homeworld }: CardProps) => {
   return (
     <Box className="card">
       <ImgBox>
@@ -11,16 +19,16 @@ const Card = () => {
       </ImgBox>
       <div className="content">
         <h2>
-          STAR WARS
+          {name}
           <br />
-          <span>the force awakens</span>
+          <span>{homeworld}</span>
         </h2>
       </div>
     </Box>
   );
 };
 
-export default Card;
+export default React.memo(Card);
 
 const Box = styled.div`
   position: relative;
@@ -65,9 +73,9 @@ const Box = styled.div`
     text-transform: uppercase;
   }
   .content h2 span {
-    font-size: 14px;
-    font-weight: 200;
-
+    width: 100%;
+    font-size: 9px;
+    font-weight: 20;
     letter-spacing: 2px;
   }
 `;
@@ -81,7 +89,7 @@ const ImgBox = styled.div`
   box-sizing: border-box;
   > img {
     max-width: 100%;
-    opacity: 0.3;
+    opacity: 0.6;
     transition: 0.5s;
   }
 `;

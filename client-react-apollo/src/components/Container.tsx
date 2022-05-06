@@ -1,15 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "./Card";
+import Card, { CardProps } from "./Card";
+import { useQuery, gql } from "@apollo/client";
+
+const FEED_QUERY = gql`
+  {
+    feed {
+      name
+      height
+      mass
+      gender
+      homeworld
+    }
+  }
+`;
 
 const Container = () => {
+  const { data } = useQuery(FEED_QUERY);
   return (
     <StyledContainer>
-      {/* render dummy cards */}
-
-      {[1, 2, 4, 5, 6, 7, 8].map((item) => (
-        <Card />
-      ))}
+      {data && (
+        <>
+          {data.feed.map((people: CardProps) => (
+            <Card {...{ ...people }} />
+          ))}
+        </>
+      )}
     </StyledContainer>
   );
 };
