@@ -24,6 +24,11 @@ const Card = ({ name, height, mass, gender, homeworld }: CardProps) => {
           <span>{homeworld}</span>
         </h2>
       </div>
+      <DetailBox>
+        <span>gender: {gender}</span>
+        <span>mass:{mass}</span>
+        <span>height:{height}</span>
+      </DetailBox>
     </Box>
   );
 };
@@ -42,9 +47,12 @@ const Box = styled.div`
   transition: 0.5s;
 
   &:hover {
-    height: 400px;
+    height: 410px;
     > div > img {
       opacity: 1;
+    }
+    > div:nth-child(3) {
+      display: flex;
     }
     .content {
       opacity: 1;
@@ -52,10 +60,9 @@ const Box = styled.div`
   }
   .content {
     position: absolute;
-    bottom: 0;
     left: 10px;
     right: 10px;
-    bottom: 10px;
+    bottom: 20px;
     height: 90px;
     background: rgba(0, 0, 0, 0.04);
     display: flex;
@@ -63,6 +70,7 @@ const Box = styled.div`
     align-items: center;
     opacity: 0.6;
     transition: 0.5s;
+    margin-bottom: 0.5rem;
   }
   .content h2 {
     font-size: 20px;
@@ -91,5 +99,28 @@ const ImgBox = styled.div`
     max-width: 100%;
     opacity: 0.6;
     transition: 0.5s;
+  }
+`;
+const DetailBox = styled.div`
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  transition: 0.5s;
+  display: none;
+  span {
+    font-size: 12px;
+    color: #fff;
+    font-weight: 100;
+    line-height: 10px;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    margin-top: 0.51rem;
+    margin-left: 0.6rem;
   }
 `;

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card, { CardProps } from "./Card";
-import { useQuery, gql } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
+import Navigator from "./Navigator";
+import SearchBar from "./SearchBar";
 
 const FEED_QUERY = gql`
-  {
-    feed {
+  query GetFeedList($page: Int!) {
+    feed(page: $page) {
       name
-      height
       mass
+      height
       gender
       homeworld
     }
@@ -16,15 +18,31 @@ const FEED_QUERY = gql`
 `;
 
 const Container = () => {
-  const { data } = useQuery(FEED_QUERY);
+  const [page, setPage] = useState(1);
+
+  const [executePagination, { data, loading }] = useLazyQuery(FEED_QUERY, {});
+
+  useEffect(() => {
+    console.log("hello world", page);
+    executePagination({
+      variables: { page },
+    });
+  }, [page]);
+
   return (
     <StyledContainer>
+      <SearchBar />
+      <Navigator
+        onLeftClick={() => setPage(page - 1)}
+        onRightClick={() => setPage(page + 1)}
+        isLoading={loading}
+      />
       {data && (
-        <>
+        <div>
           {data.feed.map((people: CardProps) => (
             <Card {...{ ...people }} />
           ))}
-        </>
+        </div>
       )}
     </StyledContainer>
   );
@@ -34,10 +52,17 @@ export default Container;
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   min-height: 100vh;
   background: #060c21;
   z-index: -5;
+  overflow-x: hidden;
+  & > div:nth-child(3) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 `;
