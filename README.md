@@ -37,7 +37,7 @@ Install back end  with yarn
 - The User should be able to navigate back to the Home page to the previously active People page from the Detail page
 ## 🚀 About Me
 I'm a full stack developer...
-
+https://amanuell2.github.io
 
 ## 🔗 Links
 for the moment it is not live, it should be pulled and run localy
