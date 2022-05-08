@@ -34,7 +34,7 @@ export const peopleQuery = extendType({
           urlQuery = `?page=${page}`;
         }
         const response = await fetch(`${baseURL}people/${urlQuery}`).then(
-          (res) => res.json()
+          (res:any) => res.json()
         );
         return response?.results || [];
       },
@@ -54,7 +54,7 @@ export const getPeopleQuery = extendType({
       async resolve(parents, args, context, info) {
         const { search } = args;
         const response = await fetch(`${baseURL}people/?search=${search}`).then(
-          (res) => res.json()
+          (res:any) => res.json()
         );
         return response?.results;
       },
