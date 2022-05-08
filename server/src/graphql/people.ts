@@ -22,11 +22,18 @@ export const peopleQuery = extendType({
       type: "People",
       args: {
         page: intArg() || 1,
+        search: stringArg(),
       },
       async resolve(parents, args, context, info) {
-        let { page } = args;
-        if (page === undefined || page === null || page < 0) page = 1;
-        const response = await fetch(`${baseURL}people/?page=${page}`).then(
+        let { page, search } = args;
+        let urlQuery;
+        if (search) {
+          urlQuery = `?search=${search}`;
+        } else {
+          if (page === undefined || page === null || page < 0) page = 1;
+          urlQuery = `?page=${page}`;
+        }
+        const response = await fetch(`${baseURL}people/${urlQuery}`).then(
           (res) => res.json()
         );
         return response?.results || [];

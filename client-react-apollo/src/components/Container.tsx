@@ -6,8 +6,8 @@ import Navigator from "./Navigator";
 import SearchBar from "./SearchBar";
 
 const FEED_QUERY = gql`
-  query GetFeedList($page: Int!) {
-    feed(page: $page) {
+  query GetFeedList($page: Int!, $search: String!) {
+    feed(page: $page, search: $search) {
       name
       mass
       height
@@ -19,19 +19,18 @@ const FEED_QUERY = gql`
 
 const Container = () => {
   const [page, setPage] = useState(1);
-
+  const [search, setSearch] = useState("");
   const [executePagination, { data, loading }] = useLazyQuery(FEED_QUERY, {});
 
   useEffect(() => {
-    console.log("hello world", page);
     executePagination({
-      variables: { page },
+      variables: { page, search },
     });
-  }, [page]);
+  }, [page, search]);
 
   return (
     <StyledContainer>
-      <SearchBar />
+      <SearchBar {...{ setSearch }} />
       <Navigator
         onLeftClick={() => setPage(page - 1)}
         onRightClick={() => setPage(page + 1)}

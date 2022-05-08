@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
+import Search from "./Svg/Search";
 
-const SearchBar = () => {
+interface SearchBarProps {
+  setSearch: (search: string) => void;
+}
+const SearchBar = ({ setSearch }: SearchBarProps) => {
+  const inputRef = useRef(null);
+  const onSearch = (e: any) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
   return (
-    //    search bar with button
     <SearchBarBox>
-      <input type="text" placeholder="Search" />
-      <button>Search</button>
+      <input
+        ref={inputRef}
+        type="text"
+        placeholder="Search"
+        onChange={(e) => onSearch(e)}
+      />
+      <button style={{ background: "transparent", border: "none" }}>
+        <Search />
+        {""}
+      </button>
     </SearchBarBox>
   );
 };
@@ -42,14 +59,9 @@ const SearchBarBox = styled.div`
     &:focus {
       outline: none;
     }
-    & > button {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 0;
-      margin: 0;
+    > button {
+      background: transparent !important;
+      border: none !important;
       &:hover {
         cursor: pointer;
         background-color: #0c0909;

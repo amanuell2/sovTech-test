@@ -11,6 +11,6 @@ type People {
 }
 
 type Query {
-  feed(page: Int): [People!]!
+  feed(page: Int, search: String): [People!]!
   people(search: String): [People]
 }

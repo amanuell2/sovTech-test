@@ -80,6 +80,7 @@ export interface NexusGenArgTypes {
   Query: {
     feed: { // args
       page?: number | null; // Int
+      search?: string | null; // String
     }
     people: { // args
       search?: string | null; // String

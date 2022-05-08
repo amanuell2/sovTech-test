@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import LeftArrow from "./LeftArrow";
-import RightArrow from "./RightArrow";
+import LeftArrow from "./Svg/LeftArrow";
+import RightArrow from "./Svg/RightArrow";
 
 export interface NavigatorProps {
   onLeftClick: () => any;
